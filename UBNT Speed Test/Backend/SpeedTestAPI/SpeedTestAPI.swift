@@ -37,7 +37,7 @@ final class SpeedTestAPI {
   }
 
   // * -> JSONDecodable
-  func httpRequest<Request: RequestProtocol, Payload>(_ request: Request) -> Single<Request.Response>
+  private func httpRequest<Request: RequestProtocol, Payload>(_ request: Request) -> Single<Request.Response>
     where Request.Response == JSONDecodableResponse<Payload> {
 
       do {
@@ -48,6 +48,27 @@ final class SpeedTestAPI {
       } catch {
         return Single.error(error)
       }
+  }
+
+  func createClientToken() -> Single<Void> {
+    let request = CreateClientToken()
+
+    return httpRequest(request)
+      .do(onSuccess: { [weak self] response in
+        self?.token = response.payload.token
+      })
+      .map { _ in Void() }
+      .asObservable()
+      .asSingle()
+  }
+
+  func fetchAllServers() -> Single<[String]> {
+    let request = FetchServers()
+
+    return httpRequest(request)
+      .map { $0.payload.urls }
+      .asObservable()
+      .asSingle()
   }
 }
 

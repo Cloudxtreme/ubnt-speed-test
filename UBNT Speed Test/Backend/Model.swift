@@ -11,25 +11,4 @@ import RxSwift
 
 final class Model {
   let api = SpeedTestAPI(baseURL: URL(string: "http://speedtest.ubncloud.com")!)
-
-  func fetchClientToken() -> Single<Void> {
-    let request = CreateClientToken()
-
-    return api.httpRequest(request)
-      .do(onSuccess: { [weak self] response in
-        self?.api.token = response.payload.token
-      })
-      .map { _ in Void() }
-      .asObservable()
-      .asSingle()
-  }
-
-  func fetchAllServers() -> Single<[String]> {
-    let request = FetchServers()
-
-    return api.httpRequest(request)
-      .map { $0.payload.urls }
-      .asObservable()
-      .asSingle()
-  }
 }
