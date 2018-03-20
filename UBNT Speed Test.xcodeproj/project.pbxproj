@@ -9,11 +9,15 @@
 /* Begin PBXBuildFile section */
 		2C8670B7A62224B96ED5DA6F /* Pods_UBNT_Speed_Test.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69DCC33D3FB4C0CB922BA8DE /* Pods_UBNT_Speed_Test.framework */; };
 		2F414E3520614BC30065AEC7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F414E3420614BC30065AEC7 /* AppDelegate.swift */; };
-		2F414E3720614BC30065AEC7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F414E3620614BC30065AEC7 /* ViewController.swift */; };
 		2F414E3A20614BC30065AEC7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2F414E3820614BC30065AEC7 /* Main.storyboard */; };
 		2F414E3C20614BC30065AEC7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2F414E3B20614BC30065AEC7 /* Assets.xcassets */; };
 		2F414E3F20614BC30065AEC7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2F414E3D20614BC30065AEC7 /* LaunchScreen.storyboard */; };
 		2F414E4A20614BC30065AEC7 /* UBNT_Speed_TestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F414E4920614BC30065AEC7 /* UBNT_Speed_TestTests.swift */; };
+		2F414E5520614FEC0065AEC7 /* SpeedTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F414E5420614FEC0065AEC7 /* SpeedTestViewController.swift */; };
+		2F414E582061500C0065AEC7 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F414E572061500C0065AEC7 /* AppCoordinator.swift */; };
+		2F414E5A206150220065AEC7 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F414E59206150220065AEC7 /* Model.swift */; };
+		2F414E5D206151910065AEC7 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F414E5C206151910065AEC7 /* R.generated.swift */; };
+		2F414E5F206152080065AEC7 /* Shortcuts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F414E5E206152080065AEC7 /* Shortcuts.swift */; };
 		5E2739212D77DE3777E61422 /* Pods_UBNT_Speed_TestTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 641B88EDB89602F2AC51BA61 /* Pods_UBNT_Speed_TestTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -29,8 +33,7 @@
 
 /* Begin PBXFileReference section */
 		2F414E3120614BC30065AEC7 /* UBNT Speed Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "UBNT Speed Test.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		2F414E3420614BC30065AEC7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		2F414E3620614BC30065AEC7 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		2F414E3420614BC30065AEC7 /* AppDelegate.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; tabWidth = 2; };
 		2F414E3920614BC30065AEC7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		2F414E3B20614BC30065AEC7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2F414E3E20614BC30065AEC7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -38,6 +41,11 @@
 		2F414E4520614BC30065AEC7 /* UBNT Speed TestTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "UBNT Speed TestTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2F414E4920614BC30065AEC7 /* UBNT_Speed_TestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UBNT_Speed_TestTests.swift; sourceTree = "<group>"; };
 		2F414E4B20614BC30065AEC7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2F414E5420614FEC0065AEC7 /* SpeedTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedTestViewController.swift; sourceTree = "<group>"; };
+		2F414E572061500C0065AEC7 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
+		2F414E59206150220065AEC7 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		2F414E5C206151910065AEC7 /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = SOURCE_ROOT; };
+		2F414E5E206152080065AEC7 /* Shortcuts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shortcuts.swift; sourceTree = "<group>"; };
 		433212877475C0E43C241EE4 /* Pods-UBNT Speed TestTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UBNT Speed TestTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-UBNT Speed TestTests/Pods-UBNT Speed TestTests.debug.xcconfig"; sourceTree = "<group>"; };
 		641B88EDB89602F2AC51BA61 /* Pods_UBNT_Speed_TestTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UBNT_Speed_TestTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		69DCC33D3FB4C0CB922BA8DE /* Pods_UBNT_Speed_Test.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UBNT_Speed_Test.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -69,13 +77,16 @@
 		2F414E2820614BC30065AEC7 = {
 			isa = PBXGroup;
 			children = (
+				2F414E5C206151910065AEC7 /* R.generated.swift */,
 				2F414E3320614BC30065AEC7 /* UBNT Speed Test */,
 				2F414E4820614BC30065AEC7 /* UBNT Speed TestTests */,
 				2F414E3220614BC30065AEC7 /* Products */,
 				9E592A5EB502B3108902DA8C /* Pods */,
 				64B22FBE0CA070C91CF9DE2C /* Frameworks */,
 			);
+			indentWidth = 2;
 			sourceTree = "<group>";
+			tabWidth = 2;
 		};
 		2F414E3220614BC30065AEC7 /* Products */ = {
 			isa = PBXGroup;
@@ -90,7 +101,10 @@
 			isa = PBXGroup;
 			children = (
 				2F414E3420614BC30065AEC7 /* AppDelegate.swift */,
-				2F414E3620614BC30065AEC7 /* ViewController.swift */,
+				2F414E572061500C0065AEC7 /* AppCoordinator.swift */,
+				2F414E59206150220065AEC7 /* Model.swift */,
+				2F414E5E206152080065AEC7 /* Shortcuts.swift */,
+				2F414E60206153460065AEC7 /* Screens */,
 				2F414E3820614BC30065AEC7 /* Main.storyboard */,
 				2F414E3B20614BC30065AEC7 /* Assets.xcassets */,
 				2F414E3D20614BC30065AEC7 /* LaunchScreen.storyboard */,
@@ -106,6 +120,22 @@
 				2F414E4B20614BC30065AEC7 /* Info.plist */,
 			);
 			path = "UBNT Speed TestTests";
+			sourceTree = "<group>";
+		};
+		2F414E5620614FF60065AEC7 /* Speed test */ = {
+			isa = PBXGroup;
+			children = (
+				2F414E5420614FEC0065AEC7 /* SpeedTestViewController.swift */,
+			);
+			path = "Speed test";
+			sourceTree = "<group>";
+		};
+		2F414E60206153460065AEC7 /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				2F414E5620614FF60065AEC7 /* Speed test */,
+			);
+			path = Screens;
 			sourceTree = "<group>";
 		};
 		64B22FBE0CA070C91CF9DE2C /* Frameworks */ = {
@@ -136,6 +166,7 @@
 			buildConfigurationList = 2F414E4E20614BC30065AEC7 /* Build configuration list for PBXNativeTarget "UBNT Speed Test" */;
 			buildPhases = (
 				CEC5F969EBECDA5025B47BA7 /* [CP] Check Pods Manifest.lock */,
+				2F414E5B2061514B0065AEC7 /* R.swift */,
 				2F414E2D20614BC30065AEC7 /* Sources */,
 				2F414E2E20614BC30065AEC7 /* Frameworks */,
 				2F414E2F20614BC30065AEC7 /* Resources */,
@@ -233,6 +264,20 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		2F414E5B2061514B0065AEC7 /* R.swift */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = R.swift;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"$PODS_ROOT/R.swift/rswift\" generate \"$SRCROOT\"";
+		};
 		4A660723731D7E6D44C1FBE4 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -321,11 +366,13 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-UBNT Speed Test/Pods-UBNT Speed Test-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/R.swift.Library/Rswift.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Rswift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 			);
@@ -341,8 +388,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2F414E3720614BC30065AEC7 /* ViewController.swift in Sources */,
+				2F414E582061500C0065AEC7 /* AppCoordinator.swift in Sources */,
+				2F414E5520614FEC0065AEC7 /* SpeedTestViewController.swift in Sources */,
+				2F414E5D206151910065AEC7 /* R.generated.swift in Sources */,
 				2F414E3520614BC30065AEC7 /* AppDelegate.swift in Sources */,
+				2F414E5A206150220065AEC7 /* Model.swift in Sources */,
+				2F414E5F206152080065AEC7 /* Shortcuts.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -499,11 +550,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = WBH7BDBQCB;
 				INFOPLIST_FILE = "UBNT Speed Test/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "io.kriz.roman.UBNT-Speed-Test";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -515,11 +567,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = WBH7BDBQCB;
 				INFOPLIST_FILE = "UBNT Speed Test/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "io.kriz.roman.UBNT-Speed-Test";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
