@@ -17,9 +17,38 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="ztG-5g-Fwe">
+                                <rect key="frame" x="169" y="40" width="37" height="37"/>
+                                <color key="color" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </activityIndicatorView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e2R-Z6-fvV">
+                                <rect key="frame" x="170" y="617" width="34" height="30"/>
+                                <state key="normal" title="Start"/>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ayh-CV-2UR">
+                                <rect key="frame" x="166" y="94" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="e2R-Z6-fvV" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="IEi-3e-KaU"/>
+                            <constraint firstItem="Ayh-CV-2UR" firstAttribute="top" secondItem="ztG-5g-Fwe" secondAttribute="bottom" constant="17" id="bes-sy-WW3"/>
+                            <constraint firstItem="ztG-5g-Fwe" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="gNl-hh-S5w"/>
+                            <constraint firstItem="ztG-5g-Fwe" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="hsC-op-Dtl"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="e2R-Z6-fvV" secondAttribute="bottom" constant="20" id="rf4-Q9-Q7J"/>
+                            <constraint firstItem="Ayh-CV-2UR" firstAttribute="centerX" secondItem="ztG-5g-Fwe" secondAttribute="centerX" id="xrD-uo-veH"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <connections>
+                        <outlet property="actionButton" destination="e2R-Z6-fvV" id="6bt-F0-CXA"/>
+                        <outlet property="activityIndicator" destination="ztG-5g-Fwe" id="Dh2-Dv-ZV0"/>
+                        <outlet property="statusLabel" destination="Ayh-CV-2UR" id="5WH-8t-nir"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
