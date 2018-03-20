@@ -1,5 +1,5 @@
 //
-//  Model.swift
+//  SpeedTestViewModel.swift
 //  UBNT Speed Test
 //
 //  Created by Roman Kříž on 20/03/2018.
@@ -8,6 +8,10 @@
 
 import Foundation
 
-final class Model {
-  
+final class SpeedTestViewModel {
+  let model: Model
+
+  init(model: Model) {
+    self.model = model
+  }
 }

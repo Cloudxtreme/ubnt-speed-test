@@ -18,6 +18,9 @@
 		2F414E5A206150220065AEC7 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F414E59206150220065AEC7 /* Model.swift */; };
 		2F414E5D206151910065AEC7 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F414E5C206151910065AEC7 /* R.generated.swift */; };
 		2F414E5F206152080065AEC7 /* Shortcuts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F414E5E206152080065AEC7 /* Shortcuts.swift */; };
+		2F414E63206153910065AEC7 /* SpeedTestAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F414E62206153910065AEC7 /* SpeedTestAPI.swift */; };
+		2F414E66206157E60065AEC7 /* Endpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F414E65206157E60065AEC7 /* Endpoints.swift */; };
+		2F414E6820615BAE0065AEC7 /* SpeedTestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F414E6720615BAE0065AEC7 /* SpeedTestViewModel.swift */; };
 		5E2739212D77DE3777E61422 /* Pods_UBNT_Speed_TestTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 641B88EDB89602F2AC51BA61 /* Pods_UBNT_Speed_TestTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -46,6 +49,9 @@
 		2F414E59206150220065AEC7 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		2F414E5C206151910065AEC7 /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = SOURCE_ROOT; };
 		2F414E5E206152080065AEC7 /* Shortcuts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shortcuts.swift; sourceTree = "<group>"; };
+		2F414E62206153910065AEC7 /* SpeedTestAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedTestAPI.swift; sourceTree = "<group>"; };
+		2F414E65206157E60065AEC7 /* Endpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoints.swift; sourceTree = "<group>"; };
+		2F414E6720615BAE0065AEC7 /* SpeedTestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedTestViewModel.swift; sourceTree = "<group>"; };
 		433212877475C0E43C241EE4 /* Pods-UBNT Speed TestTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UBNT Speed TestTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-UBNT Speed TestTests/Pods-UBNT Speed TestTests.debug.xcconfig"; sourceTree = "<group>"; };
 		641B88EDB89602F2AC51BA61 /* Pods_UBNT_Speed_TestTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UBNT_Speed_TestTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		69DCC33D3FB4C0CB922BA8DE /* Pods_UBNT_Speed_Test.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UBNT_Speed_Test.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -102,8 +108,8 @@
 			children = (
 				2F414E3420614BC30065AEC7 /* AppDelegate.swift */,
 				2F414E572061500C0065AEC7 /* AppCoordinator.swift */,
-				2F414E59206150220065AEC7 /* Model.swift */,
 				2F414E5E206152080065AEC7 /* Shortcuts.swift */,
+				2F414E61206153760065AEC7 /* Backend */,
 				2F414E60206153460065AEC7 /* Screens */,
 				2F414E3820614BC30065AEC7 /* Main.storyboard */,
 				2F414E3B20614BC30065AEC7 /* Assets.xcassets */,
@@ -126,6 +132,7 @@
 			isa = PBXGroup;
 			children = (
 				2F414E5420614FEC0065AEC7 /* SpeedTestViewController.swift */,
+				2F414E6720615BAE0065AEC7 /* SpeedTestViewModel.swift */,
 			);
 			path = "Speed test";
 			sourceTree = "<group>";
@@ -136,6 +143,24 @@
 				2F414E5620614FF60065AEC7 /* Speed test */,
 			);
 			path = Screens;
+			sourceTree = "<group>";
+		};
+		2F414E61206153760065AEC7 /* Backend */ = {
+			isa = PBXGroup;
+			children = (
+				2F414E59206150220065AEC7 /* Model.swift */,
+				2F414E64206157D80065AEC7 /* SpeedTestAPI */,
+			);
+			path = Backend;
+			sourceTree = "<group>";
+		};
+		2F414E64206157D80065AEC7 /* SpeedTestAPI */ = {
+			isa = PBXGroup;
+			children = (
+				2F414E62206153910065AEC7 /* SpeedTestAPI.swift */,
+				2F414E65206157E60065AEC7 /* Endpoints.swift */,
+			);
+			path = SpeedTestAPI;
 			sourceTree = "<group>";
 		};
 		64B22FBE0CA070C91CF9DE2C /* Frameworks */ = {
@@ -366,15 +391,25 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-UBNT Speed Test/Pods-UBNT Speed Test-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/AlamofireNetworkActivityLogger/AlamofireNetworkActivityLogger.framework",
 				"${BUILT_PRODUCTS_DIR}/R.swift.Library/Rswift.framework",
+				"${BUILT_PRODUCTS_DIR}/RxAlamofire/RxAlamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
+				"${BUILT_PRODUCTS_DIR}/RxStarscream/RxStarscream.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/Starscream/Starscream.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireNetworkActivityLogger.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Rswift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxAlamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxStarscream.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Starscream.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -392,8 +427,11 @@
 				2F414E5520614FEC0065AEC7 /* SpeedTestViewController.swift in Sources */,
 				2F414E5D206151910065AEC7 /* R.generated.swift in Sources */,
 				2F414E3520614BC30065AEC7 /* AppDelegate.swift in Sources */,
+				2F414E63206153910065AEC7 /* SpeedTestAPI.swift in Sources */,
 				2F414E5A206150220065AEC7 /* Model.swift in Sources */,
+				2F414E66206157E60065AEC7 /* Endpoints.swift in Sources */,
 				2F414E5F206152080065AEC7 /* Shortcuts.swift in Sources */,
+				2F414E6820615BAE0065AEC7 /* SpeedTestViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

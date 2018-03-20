@@ -7,6 +7,10 @@ target 'UBNT Speed Test' do
 
   pod 'RxSwift'
   pod 'RxCocoa'
+  pod 'RxAlamofire'
+  pod 'RxStarscream'
+
+  pod 'AlamofireNetworkActivityLogger', configurations: ['Debug']
 
   target 'UBNT Speed TestTests' do
     inherit! :search_paths

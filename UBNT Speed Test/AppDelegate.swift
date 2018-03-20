@@ -8,6 +8,10 @@
 
 import UIKit
 
+#if DEBUG
+  import AlamofireNetworkActivityLogger
+#endif
+
 @UIApplicationMain
 class AppDelegate: UIResponder {
   var window: UIWindow?
@@ -25,6 +29,11 @@ class AppDelegate: UIResponder {
 extension AppDelegate: UIApplicationDelegate {
   func application(_ application: UIApplication,
                    didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+
+    #if DEBUG
+      NetworkActivityLogger.shared.startLogging()
+      NetworkActivityLogger.shared.level = .debug
+    #endif
 
     window = UIWindow(frame: UIScreen.main.bounds).tap {
       $0.rootViewController = appCoordinator.rootViewController

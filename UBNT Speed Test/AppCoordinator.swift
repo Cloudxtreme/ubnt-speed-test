@@ -14,6 +14,8 @@ final class AppCoordinator {
 
   init(model: Model) {
     self.model = model
-    self.rootViewController = UINavigationController(rootViewController: SpeedTestViewController.create())
+    let viewModel = SpeedTestViewModel(model: model)
+    let vc = SpeedTestViewController.create(viewModel: viewModel)
+    self.rootViewController = UINavigationController(rootViewController: vc)
   }
 }
