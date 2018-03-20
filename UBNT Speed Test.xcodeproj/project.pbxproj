@@ -7,12 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2C8670B7A62224B96ED5DA6F /* Pods_UBNT_Speed_Test.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69DCC33D3FB4C0CB922BA8DE /* Pods_UBNT_Speed_Test.framework */; };
 		2F414E3520614BC30065AEC7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F414E3420614BC30065AEC7 /* AppDelegate.swift */; };
 		2F414E3720614BC30065AEC7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F414E3620614BC30065AEC7 /* ViewController.swift */; };
 		2F414E3A20614BC30065AEC7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2F414E3820614BC30065AEC7 /* Main.storyboard */; };
 		2F414E3C20614BC30065AEC7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2F414E3B20614BC30065AEC7 /* Assets.xcassets */; };
 		2F414E3F20614BC30065AEC7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2F414E3D20614BC30065AEC7 /* LaunchScreen.storyboard */; };
 		2F414E4A20614BC30065AEC7 /* UBNT_Speed_TestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F414E4920614BC30065AEC7 /* UBNT_Speed_TestTests.swift */; };
+		5E2739212D77DE3777E61422 /* Pods_UBNT_Speed_TestTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 641B88EDB89602F2AC51BA61 /* Pods_UBNT_Speed_TestTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +38,12 @@
 		2F414E4520614BC30065AEC7 /* UBNT Speed TestTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "UBNT Speed TestTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2F414E4920614BC30065AEC7 /* UBNT_Speed_TestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UBNT_Speed_TestTests.swift; sourceTree = "<group>"; };
 		2F414E4B20614BC30065AEC7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		433212877475C0E43C241EE4 /* Pods-UBNT Speed TestTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UBNT Speed TestTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-UBNT Speed TestTests/Pods-UBNT Speed TestTests.debug.xcconfig"; sourceTree = "<group>"; };
+		641B88EDB89602F2AC51BA61 /* Pods_UBNT_Speed_TestTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UBNT_Speed_TestTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		69DCC33D3FB4C0CB922BA8DE /* Pods_UBNT_Speed_Test.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UBNT_Speed_Test.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8CFC5ED82244EC6DCA681205 /* Pods-UBNT Speed Test.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UBNT Speed Test.release.xcconfig"; path = "Pods/Target Support Files/Pods-UBNT Speed Test/Pods-UBNT Speed Test.release.xcconfig"; sourceTree = "<group>"; };
+		C197EA108002B02BB5C5595B /* Pods-UBNT Speed Test.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UBNT Speed Test.debug.xcconfig"; path = "Pods/Target Support Files/Pods-UBNT Speed Test/Pods-UBNT Speed Test.debug.xcconfig"; sourceTree = "<group>"; };
+		EA0F5CE9CF8A26A67CED2709 /* Pods-UBNT Speed TestTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UBNT Speed TestTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-UBNT Speed TestTests/Pods-UBNT Speed TestTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,6 +51,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C8670B7A62224B96ED5DA6F /* Pods_UBNT_Speed_Test.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -50,6 +59,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5E2739212D77DE3777E61422 /* Pods_UBNT_Speed_TestTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -62,6 +72,8 @@
 				2F414E3320614BC30065AEC7 /* UBNT Speed Test */,
 				2F414E4820614BC30065AEC7 /* UBNT Speed TestTests */,
 				2F414E3220614BC30065AEC7 /* Products */,
+				9E592A5EB502B3108902DA8C /* Pods */,
+				64B22FBE0CA070C91CF9DE2C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -96,6 +108,26 @@
 			path = "UBNT Speed TestTests";
 			sourceTree = "<group>";
 		};
+		64B22FBE0CA070C91CF9DE2C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				69DCC33D3FB4C0CB922BA8DE /* Pods_UBNT_Speed_Test.framework */,
+				641B88EDB89602F2AC51BA61 /* Pods_UBNT_Speed_TestTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		9E592A5EB502B3108902DA8C /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				C197EA108002B02BB5C5595B /* Pods-UBNT Speed Test.debug.xcconfig */,
+				8CFC5ED82244EC6DCA681205 /* Pods-UBNT Speed Test.release.xcconfig */,
+				433212877475C0E43C241EE4 /* Pods-UBNT Speed TestTests.debug.xcconfig */,
+				EA0F5CE9CF8A26A67CED2709 /* Pods-UBNT Speed TestTests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -103,9 +135,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2F414E4E20614BC30065AEC7 /* Build configuration list for PBXNativeTarget "UBNT Speed Test" */;
 			buildPhases = (
+				CEC5F969EBECDA5025B47BA7 /* [CP] Check Pods Manifest.lock */,
 				2F414E2D20614BC30065AEC7 /* Sources */,
 				2F414E2E20614BC30065AEC7 /* Frameworks */,
 				2F414E2F20614BC30065AEC7 /* Resources */,
+				FD3D314571C75898DB0CC100 /* [CP] Embed Pods Frameworks */,
+				4D5BA80CA84012DAFC86D393 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -120,9 +155,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2F414E5120614BC30065AEC7 /* Build configuration list for PBXNativeTarget "UBNT Speed TestTests" */;
 			buildPhases = (
+				4A660723731D7E6D44C1FBE4 /* [CP] Check Pods Manifest.lock */,
 				2F414E4120614BC30065AEC7 /* Sources */,
 				2F414E4220614BC30065AEC7 /* Frameworks */,
 				2F414E4320614BC30065AEC7 /* Resources */,
+				5954B7D674609AB2F66A5D0E /* [CP] Embed Pods Frameworks */,
+				BC376484108CE65C2C987462 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -193,6 +231,110 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		4A660723731D7E6D44C1FBE4 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-UBNT Speed TestTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4D5BA80CA84012DAFC86D393 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-UBNT Speed Test/Pods-UBNT Speed Test-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5954B7D674609AB2F66A5D0E /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-UBNT Speed TestTests/Pods-UBNT Speed TestTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BC376484108CE65C2C987462 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-UBNT Speed TestTests/Pods-UBNT Speed TestTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CEC5F969EBECDA5025B47BA7 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-UBNT Speed Test-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FD3D314571C75898DB0CC100 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-UBNT Speed Test/Pods-UBNT Speed Test-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
+				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-UBNT Speed Test/Pods-UBNT Speed Test-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		2F414E2D20614BC30065AEC7 /* Sources */ = {
@@ -351,6 +493,7 @@
 		};
 		2F414E4F20614BC30065AEC7 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C197EA108002B02BB5C5595B /* Pods-UBNT Speed Test.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -366,6 +509,7 @@
 		};
 		2F414E5020614BC30065AEC7 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8CFC5ED82244EC6DCA681205 /* Pods-UBNT Speed Test.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -381,6 +525,7 @@
 		};
 		2F414E5220614BC30065AEC7 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 433212877475C0E43C241EE4 /* Pods-UBNT Speed TestTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -398,6 +543,7 @@
 		};
 		2F414E5320614BC30065AEC7 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EA0F5CE9CF8A26A67CED2709 /* Pods-UBNT Speed TestTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
