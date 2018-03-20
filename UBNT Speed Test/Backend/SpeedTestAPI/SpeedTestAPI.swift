@@ -62,11 +62,11 @@ final class SpeedTestAPI {
       .asSingle()
   }
 
-  func fetchAllServers() -> Single<[String]> {
-    let request = FetchServers()
+  func fetchAllServers() -> Single<[FetchServers.Server]> {
+    let request = FetchServers(coordinates: nil)
 
     return httpRequest(request)
-      .map { $0.payload.urls }
+      .map { $0.payload.servers }
       .asObservable()
       .asSingle()
   }
@@ -110,12 +110,32 @@ struct VoidResponse: ResponseProtocol {
   init() { }
 }
 
-
+/// Use this struct as Request's PayloadType for setting parameters to URL as part of query
+struct URLParameters {
+  var parameters: [String: String]
+}
+extension URLParameters: ExpressibleByDictionaryLiteral {
+  init(dictionaryLiteral elements: (String, String)...) {
+    var params: [String: String] = [:]
+    elements.forEach {
+      params[$0] = $1
+    }
+    parameters = params
+  }
+}
 
 extension RequestProtocol where PayloadType == Void {
   func createRequest(in sessionManager: SessionManager, baseURL: URL, headers: HTTPHeaders?) -> DataRequest {
     let wholeURL = baseURL.appendingPathComponent(path)
     return sessionManager.request(wholeURL, method: self.method, headers: headers)
+  }
+}
+
+extension RequestProtocol where PayloadType == URLParameters {
+  func createRequest(in sessionManager: SessionManager, baseURL: URL, headers: HTTPHeaders?) -> DataRequest {
+    let wholeURL = baseURL.appendingPathComponent(path)
+    return sessionManager.request(wholeURL, method: self.method, parameters: self.payload.parameters,
+                                  encoding: URLEncoding.default, headers: headers)
   }
 }
 

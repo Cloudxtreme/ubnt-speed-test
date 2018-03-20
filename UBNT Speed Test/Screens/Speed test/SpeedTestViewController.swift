@@ -33,9 +33,7 @@ final class SpeedTestViewController: UIViewController {
       .drive(onNext: { [unowned self] in
         switch self.status {
         case .start, .showingResults:
-          // start
-          self.status = .gettingUserLocation
-          self.updateUI()
+          self.start()
 
         case .fetchingServers, .findingFastestServer, .gettingUserLocation, .performingSpeedTest:
           // cancel
@@ -71,6 +69,21 @@ final class SpeedTestViewController: UIViewController {
     default:
       break
     }
+  }
+
+  func start() {
+    self.status = .gettingUserLocation
+    self.updateUI()
+
+    self.viewModel.model.api
+      .createClientToken()
+      .flatMap { [unowned self] in
+        self.viewModel.model.api.fetchAllServers()
+      }
+      .subscribe(onSuccess: {
+        print($0)
+      })
+      .disposed(by: disposeBag)
   }
 }
 

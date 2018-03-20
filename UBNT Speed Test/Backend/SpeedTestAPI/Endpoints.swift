@@ -8,6 +8,8 @@
 
 import Foundation
 import Alamofire
+import struct CoreLocation.CLLocationCoordinate2D
+import typealias CoreLocation.CLLocationDegrees
 
 struct CreateClientToken: RequestProtocol {
   let method: HTTPMethod = .post
@@ -24,15 +26,31 @@ struct CreateClientToken: RequestProtocol {
 
 struct FetchServers: RequestProtocol {
   let method: HTTPMethod = .get
-  let path: String = "/api/v1/servers"
-  let payload: Void = ()
+  let path: String = "/api/v2/servers"
+  let payload: URLParameters
+
+  init(coordinates: CLLocationCoordinate2D?) {
+    let arguments = coordinates.map { ["latitude": String($0.latitude), "longitude": String($0.longitude)] } ?? [:]
+    payload = URLParameters(parameters: arguments)
+  }
+
+  struct Server: JSONDecodable {
+    let city: String
+    let country: String
+    let countryCode: String
+    let latitude: CLLocationDegrees
+    let longitude: CLLocationDegrees
+    let provider: String
+    let speedMbps: Int
+    let url: URL
+  }
 
   struct ResponsePayload: JSONDecodable {
-    let urls: [String]
+    let servers: [Server]
 
     init(from decoder: Decoder) throws {
       let container = try decoder.singleValueContainer()
-      urls = try container.decode([String].self) // parse list of strings
+      servers = try container.decode([Server].self) // parse list of strings
     }
   }
 
