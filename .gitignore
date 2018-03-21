@@ -69,3 +69,4 @@ fastlane/test_output
 # Bundle
 vendor/gems/
 *.generated.swift
+.bundle

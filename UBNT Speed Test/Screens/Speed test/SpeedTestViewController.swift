@@ -13,7 +13,6 @@ import RxCocoa
 final class SpeedTestViewController: UIViewController {
   let disposeBag = DisposeBag()
   private var viewModel: SpeedTestViewModel!
-  var status: Status = .start
 
   @IBOutlet weak var statusLabel: UILabel!
   @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
@@ -31,28 +30,34 @@ final class SpeedTestViewController: UIViewController {
     actionButton.rx.tap
       .asDriver()
       .drive(onNext: { [unowned self] in
-        switch self.status {
-        case .start, .showingResults:
-          self.start()
-
+        switch try! self.viewModel.status.value() {
+        case .start, .showingResults, .failed:
+          self.viewModel.start()
         case .fetchingServers, .findingFastestServer, .gettingUserLocation, .performingSpeedTest:
-          // cancel
-          self.status = .start
-          self.updateUI()
+          self.viewModel.stop()
         }
       })
+      .disposed(by: disposeBag)
+
+    viewModel.status
+      .subscribe(onNext: { [unowned self] status in
+          print(status)
+          self.updateUI(status)
+        }, onError: { error in
+          print(error)
+        })
       .disposed(by: disposeBag)
   }
 
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
 
-    updateUI()
+    updateUI(try! self.viewModel.status.value())
   }
 
-  func updateUI() {
+  func updateUI(_ status: SpeedTestViewModel.Status) {
     switch status {
-    case .start, .showingResults:
+    case .start, .showingResults, .failed:
       actionButton.setTitle("Start", for: .normal)
     case .fetchingServers, .findingFastestServer, .gettingUserLocation, .performingSpeedTest:
       actionButton.setTitle("Cancel", for: .normal)
@@ -68,58 +73,6 @@ final class SpeedTestViewController: UIViewController {
 
     default:
       break
-    }
-  }
-
-  func start() {
-    self.status = .gettingUserLocation
-    self.updateUI()
-
-    self.viewModel.model.api
-      .createClientToken()
-      .flatMap { [unowned self] in
-        self.viewModel.model.api.fetchAllServers()
-      }
-      .subscribe(onSuccess: {
-        print($0)
-      })
-      .disposed(by: disposeBag)
-  }
-}
-
-extension SpeedTestViewController {
-  enum Status {
-    case start
-    case gettingUserLocation
-    case fetchingServers
-    case findingFastestServer
-    case performingSpeedTest
-    case showingResults
-
-    var description: String {
-      switch self {
-      case .start:
-        return ""
-      case .gettingUserLocation:
-        return "Getting current location"
-      case .fetchingServers:
-        return "Fetching nearby servers"
-      case .findingFastestServer:
-        return "Resolving fastest server"
-      case .performingSpeedTest:
-        return "Performing speed test"
-      case .showingResults:
-        return ""
-      }
-    }
-
-    var shouldAnimateActivityIndicator: Bool {
-      switch self {
-      case .start, .showingResults:
-        return false
-      case .fetchingServers, .findingFastestServer, .gettingUserLocation, .performingSpeedTest:
-        return true
-      }
     }
   }
 }

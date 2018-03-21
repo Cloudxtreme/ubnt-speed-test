@@ -11,6 +11,7 @@ import Alamofire
 import RxSwift
 import RxAlamofire
 import RxStarscream
+import struct CoreLocation.CLLocationCoordinate2D
 
 final class SpeedTestAPI {
   let baseURL: URL
@@ -37,38 +38,35 @@ final class SpeedTestAPI {
   }
 
   // * -> JSONDecodable
-  private func httpRequest<Request: RequestProtocol, Payload>(_ request: Request) -> Single<Request.Response>
+  private func httpRequest<Request: RequestProtocol, Payload>(_ request: Request) -> Observable<Request.Response>
     where Request.Response == JSONDecodableResponse<Payload> {
 
       do {
         return try request.createRequest(in: sessionManager, baseURL: baseURL, headers: self.defaultHeaders()).rx
           .responseData()
           .map { response, data -> Request.Response in try Request.Response(payload: data) }
-          .asSingle()
       } catch {
-        return Single.error(error)
+        return Observable.error(error)
       }
   }
 
-  func createClientToken() -> Single<Void> {
+  func createClientToken() -> Observable<Void> {
     let request = CreateClientToken()
 
     return httpRequest(request)
-      .do(onSuccess: { [weak self] response in
+      .do(onNext: { [weak self] response in
         self?.token = response.payload.token
       })
       .map { _ in Void() }
       .asObservable()
-      .asSingle()
   }
 
-  func fetchAllServers() -> Single<[FetchServers.Server]> {
-    let request = FetchServers(coordinates: nil)
+  func fetchAllServers(coordinates: CLLocationCoordinate2D? = nil) -> Observable<[FetchServers.Server]> {
+    let request = FetchServers(coordinates: coordinates)
 
     return httpRequest(request)
       .map { $0.payload.servers }
       .asObservable()
-      .asSingle()
   }
 }
 
