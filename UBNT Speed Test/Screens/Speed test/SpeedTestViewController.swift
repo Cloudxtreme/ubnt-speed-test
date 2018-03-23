@@ -31,7 +31,7 @@ final class SpeedTestViewController: UIViewController {
       .asDriver()
       .drive(onNext: { [unowned self] in
         switch try! self.viewModel.status.value() {
-        case .start, .showingResults, .failed:
+        case .initial, .showingResults, .failed:
           self.viewModel.start()
         case .fetchingServers, .findingFastestServer, .gettingUserLocation, .performingSpeedTest:
           self.viewModel.stop()
@@ -53,11 +53,13 @@ final class SpeedTestViewController: UIViewController {
     super.viewWillAppear(animated)
 
     updateUI(try! self.viewModel.status.value())
+
+    self.viewModel.start()
   }
 
   func updateUI(_ status: SpeedTestViewModel.Status) {
     switch status {
-    case .start, .showingResults, .failed:
+    case .initial, .showingResults, .failed:
       actionButton.setTitle("Start", for: .normal)
     case .fetchingServers, .findingFastestServer, .gettingUserLocation, .performingSpeedTest:
       actionButton.setTitle("Cancel", for: .normal)

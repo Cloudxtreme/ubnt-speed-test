@@ -14,7 +14,7 @@ final class SpeedTestViewModel {
   let disposeBag = DisposeBag()
 
   let model: Model
-  let status = BehaviorSubject<Status>(value: .start)
+  let status = BehaviorSubject<Status>(value: .initial)
 
   var locationManager = CLLocationManager().tap {
     $0.desiredAccuracy = kCLLocationAccuracyHundredMeters
@@ -47,9 +47,15 @@ final class SpeedTestViewModel {
         self.status.onNext(.fetchingServers(fromLocation: location))
         return self.model.fetchServers(from: location)
       }
+      // limit to first 5
+      .map { Array($0[...5]) }
+      //
       .flatMap { servers -> Observable<FetchServers.Server> in
         self.status.onNext(.findingFastestServer(fromServers: servers))
-        return Observable.from(optional: servers.first)
+
+        return ServerPinger.fastest(from: servers.map { $0.url })
+          .map { result in servers.first(where: { $0.url == result.url })! }
+          .asObservable()
       }
       .subscribe(onNext: { server in
         self.status.onNext(.performingSpeedTest(currentResults: Results(speed: 0, server: server, ping: .nan)))
@@ -93,8 +99,8 @@ final class SpeedTestViewModel {
 }
 
 extension SpeedTestViewModel {
-  enum Status {
-    case start
+  enum Status: Equatable {
+    case initial
     case gettingUserLocation
     case fetchingServers(fromLocation: CLLocationCoordinate2D)
     case findingFastestServer(fromServers: [FetchServers.Server])
@@ -104,7 +110,7 @@ extension SpeedTestViewModel {
 
     var description: String {
       switch self {
-      case .start:
+      case .initial:
         return ""
       case .gettingUserLocation:
         return "Getting current location"
@@ -123,18 +129,46 @@ extension SpeedTestViewModel {
 
     var shouldAnimateActivityIndicator: Bool {
       switch self {
-      case .start, .showingResults:
+      case .initial, .showingResults:
         return false
       case .fetchingServers, .findingFastestServer, .gettingUserLocation, .performingSpeedTest, .failed:
         return true
       }
     }
+
+    static func == (lhs: Status, rhs: Status) -> Bool {
+      switch (lhs, rhs) {
+      case (.initial, .initial):
+        return true
+      case (.gettingUserLocation, .gettingUserLocation):
+        return true
+      case let (.fetchingServers(lhsLocation), .fetchingServers(rhsLocation)):
+        return lhsLocation == rhsLocation
+      case let (.findingFastestServer(lhsServers), .findingFastestServer(rhsServers)):
+        return lhsServers == rhsServers
+      case let (.performingSpeedTest(lhsResults), .performingSpeedTest(rhsResult)):
+        return lhsResults == rhsResult
+      case let (.showingResults(lhsResults), .showingResults(rhsResults)):
+        return lhsResults == rhsResults
+      case let (.failed(lhsError), .failed(rhsError)):
+        return lhsError.localizedDescription == rhsError.localizedDescription // `Error` is not equatable
+
+      default:
+        return false
+      }
+    }
   }
 
-  struct Results {
+  struct Results: Equatable {
     var speed: Int // bytes / s
     var server: FetchServers.Server
     var ping: TimeInterval // ms
+
+    static func == (lhs: Results, rhs: Results) -> Bool {
+      return lhs.speed == rhs.speed &&
+             lhs.server == rhs.server &&
+             lhs.ping == rhs.ping
+    }
   }
 
   enum Errors: Error {

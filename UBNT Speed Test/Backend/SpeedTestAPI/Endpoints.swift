@@ -34,7 +34,7 @@ struct FetchServers: RequestProtocol {
     payload = URLParameters(parameters: arguments)
   }
 
-  struct Server: JSONDecodable {
+  struct Server: JSONDecodable, Equatable {
     let city: String
     let country: String
     let countryCode: String
@@ -43,6 +43,17 @@ struct FetchServers: RequestProtocol {
     let provider: String
     let speedMbps: Int
     let url: URL
+
+    static func == (lhs: Server, rhs: Server) -> Bool {
+      return lhs.city == rhs.city &&
+             lhs.country == rhs.country &&
+             lhs.countryCode == rhs.countryCode &&
+             lhs.latitude == rhs.latitude &&
+             lhs.longitude == rhs.longitude &&
+             lhs.provider == rhs.provider &&
+             lhs.speedMbps == rhs.speedMbps &&
+             lhs.url == rhs.url
+    }
   }
 
   struct ResponsePayload: JSONDecodable {

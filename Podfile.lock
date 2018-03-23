@@ -2,6 +2,7 @@ PODS:
   - Alamofire (4.7.0)
   - AlamofireNetworkActivityLogger (2.3.0):
     - Alamofire (~> 4.6)
+  - GBPing (1.4.1)
   - R.swift (4.0.0):
     - R.swift.Library (~> 4.0.0)
   - R.swift.Library (4.0.0)
@@ -21,6 +22,7 @@ PODS:
 
 DEPENDENCIES:
   - AlamofireNetworkActivityLogger
+  - GBPing
   - R.swift
   - RxAlamofire
   - RxCocoa
@@ -30,6 +32,7 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   Alamofire: 907e0a98eb68cdb7f9d1f541a563d6ac5dc77b25
   AlamofireNetworkActivityLogger: 6f3076652ab7fa6c819b59be08ea038d339e36d8
+  GBPing: 3bf8bf81f74da35d3b94d83d0290ba78bbde7e0f
   R.swift: d6a5ec2f55a8441dc0ed9f1f8b37d7d11ae85c66
   R.swift.Library: c3af34921024333546e23b70e70d0b4e0cffca75
   RxAlamofire: 96a2bff4694a1609bb59c57b53d99ea7a0ddc64a
@@ -38,6 +41,6 @@ SPEC CHECKSUMS:
   RxSwift: e49536837d9901277638493ea537394d4b55f570
   Starscream: f5da93fe6984c77b694366bf7299b7dc63a76f26
 
-PODFILE CHECKSUM: 4c24a82f7aa623e6184a8a1c7783c40e1d90982e
+PODFILE CHECKSUM: ff6a5117857b6052c33f7d43fd39a47b2bd5a310
 
 COCOAPODS: 1.4.0

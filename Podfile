@@ -10,6 +10,8 @@ target 'UBNT Speed Test' do
   pod 'RxAlamofire'
   pod 'RxStarscream'
 
+  pod 'GBPing'
+
   pod 'AlamofireNetworkActivityLogger', configurations: ['Debug']
 
   target 'UBNT Speed TestTests' do
