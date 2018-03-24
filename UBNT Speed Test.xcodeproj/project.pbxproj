@@ -12,6 +12,7 @@
 		2F2E93F92066AA5B00910842 /* PingFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F2E93F82066AA5B00910842 /* PingFormatter.swift */; };
 		2F2E93FB2066ABC400910842 /* TransferSpeedFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F2E93FA2066ABC400910842 /* TransferSpeedFormatter.swift */; };
 		2F2E93FD2066AEAD00910842 /* Array+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F2E93FC2066AEAC00910842 /* Array+Extensions.swift */; };
+		2F2E93FF2066B94600910842 /* SpeedTestAPI+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F2E93FE2066B94600910842 /* SpeedTestAPI+Helpers.swift */; };
 		2F414E3520614BC30065AEC7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F414E3420614BC30065AEC7 /* AppDelegate.swift */; };
 		2F414E3A20614BC30065AEC7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2F414E3820614BC30065AEC7 /* Main.storyboard */; };
 		2F414E3C20614BC30065AEC7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2F414E3B20614BC30065AEC7 /* Assets.xcassets */; };
@@ -47,6 +48,7 @@
 		2F2E93F82066AA5B00910842 /* PingFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PingFormatter.swift; sourceTree = "<group>"; };
 		2F2E93FA2066ABC400910842 /* TransferSpeedFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferSpeedFormatter.swift; sourceTree = "<group>"; };
 		2F2E93FC2066AEAC00910842 /* Array+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extensions.swift"; sourceTree = "<group>"; };
+		2F2E93FE2066B94600910842 /* SpeedTestAPI+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SpeedTestAPI+Helpers.swift"; sourceTree = "<group>"; };
 		2F414E3120614BC30065AEC7 /* UBNT Speed Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "UBNT Speed Test.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2F414E3420614BC30065AEC7 /* AppDelegate.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; tabWidth = 2; };
 		2F414E3920614BC30065AEC7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -179,6 +181,7 @@
 			isa = PBXGroup;
 			children = (
 				2F414E62206153910065AEC7 /* SpeedTestAPI.swift */,
+				2F2E93FE2066B94600910842 /* SpeedTestAPI+Helpers.swift */,
 				2F414E65206157E60065AEC7 /* Endpoints.swift */,
 			);
 			path = SpeedTestAPI;
@@ -453,6 +456,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2F2E93FF2066B94600910842 /* SpeedTestAPI+Helpers.swift in Sources */,
 				2F414E582061500C0065AEC7 /* AppCoordinator.swift in Sources */,
 				2F2E93FB2066ABC400910842 /* TransferSpeedFormatter.swift in Sources */,
 				2F414E5520614FEC0065AEC7 /* SpeedTestViewController.swift in Sources */,
