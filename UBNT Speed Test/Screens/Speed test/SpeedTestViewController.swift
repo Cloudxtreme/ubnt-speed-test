@@ -22,6 +22,9 @@ final class SpeedTestViewController: UIViewController {
   @IBOutlet weak var serverNameLabel: UILabel!
   @IBOutlet weak var speedLabel: UILabel!
 
+  private let speedFormatter = TransferSpeedFormatter()
+  private let pingFormatter = PingFormatter()
+
   required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
 
@@ -70,11 +73,9 @@ final class SpeedTestViewController: UIViewController {
 
     switch status {
     case .performingSpeedTest(let currentResults), .showingResults(let currentResults):
-      let f = ByteCountFormatter()
-
-      pingLabel.text = String(currentResults.ping)
+      pingLabel.text = pingFormatter.string(from: currentResults.ping)
       serverNameLabel.text = currentResults.server.city
-      speedLabel.text = f.string(fromByteCount: Int64(currentResults.speed)) + "/s"
+      speedLabel.text = speedFormatter.string(fromBytesPerSecond: currentResults.speed)
 
     default:
       pingLabel.text = ""

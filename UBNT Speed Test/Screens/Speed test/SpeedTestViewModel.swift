@@ -69,14 +69,14 @@ final class SpeedTestViewModel {
 
           let performer = SpeedTestPerformer(api: api)
           performer.currentSpeed
-            .map { Results(speed: Int($0), server: result.server, ping: result.ping) }
+            .map { Results(speed: $0, server: result.server, ping: result.ping) }
             .subscribe(onNext: { [unowned self] in
               self.status.accept(.performingSpeedTest(currentResults: $0))
             })
             .disposed(by: localBag)
 
           performer.averageSpeed
-            .map { Results(speed: Int($0), server: result.server, ping: result.ping) }
+            .map { Results(speed: $0, server: result.server, ping: result.ping) }
             .bind(to: observer)
             .disposed(by: localBag)
 
@@ -193,9 +193,9 @@ extension SpeedTestViewModel {
   }
 
   struct Results: Equatable {
-    var speed: Int // bytes / s
+    var speed: Int64 // bytes / s
     var server: FetchServers.Server
-    var ping: TimeInterval // ms
+    var ping: TimeInterval
 
     static func == (lhs: Results, rhs: Results) -> Bool {
       return lhs.speed == rhs.speed &&
