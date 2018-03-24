@@ -73,7 +73,7 @@ final class SpeedTestViewModel {
           performer.currentSpeed
             // calculate current speed only at certain speed, so the user can actually see something
             .buffer(timeSpan: 0.15, count: 1000, scheduler: MainScheduler.instance)
-            .map { SpeedResults(speed: $0.average, server: result.server, ping: result.ping) }
+            .map { result.map(speed: $0.average) }
             .subscribe(onNext: { [unowned self] in
               self.state.accept(.performingSpeedTest(currentResults: $0))
             })
@@ -81,7 +81,7 @@ final class SpeedTestViewModel {
 
           performer.averageSpeed
             .takeLast(1) // average speed is calculated on every currentSpeed, but we want only the last final item
-            .map { SpeedResults(speed: $0, server: result.server, ping: result.ping) }
+            .map { result.map(speed: $0) }
             .bind(to: observer)
             .disposed(by: localBag)
 
@@ -90,7 +90,7 @@ final class SpeedTestViewModel {
           performer.start()
 
           return Disposables.create {
-            performer.cancel()
+            performer.stop()
             _ = localBag
           }
         }
@@ -103,10 +103,20 @@ final class SpeedTestViewModel {
       .disposed(by: disposeBag)
   }
 
-  func cancel() {
-    speedTestPerformer?.cancel()
+  func stop() {
+    speedTestPerformer?.stop()
+
+    if let performer = speedTestPerformer, let averageSpeed = try? performer.averageSpeed.value() {
+      switch state.value {
+      case .performingSpeedTest(let currentResults), .showingResults(let currentResults):
+        state.accept(.showingResults(finalResults: currentResults.map(speed: averageSpeed)))
+
+      default:
+        state.accept(.readyToTest)
+      }
+    }
+
     disposeBag = DisposeBag()
-    state.accept(.readyToTest)
   }
 
   private func requestForLocationAuthorizationIfNeeded() -> Single<Void> {
@@ -208,6 +218,10 @@ extension SpeedTestViewModel {
       return lhs.speed == rhs.speed &&
              lhs.server == rhs.server &&
              lhs.ping == rhs.ping
+    }
+
+    func map(speed: Int64) -> SpeedResults {
+      return SpeedResults(speed: speed, server: self.server, ping: self.ping)
     }
   }
 

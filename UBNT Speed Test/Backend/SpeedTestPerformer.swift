@@ -26,8 +26,8 @@ final class SpeedTestPerformer {
 
   let testingTimeInterval: TimeInterval = 15
 
-  let currentSpeed = PublishSubject<Int64>()
-  let averageSpeed = PublishSubject<Int64>()
+  let currentSpeed = BehaviorSubject<Int64>(value: 0)
+  let averageSpeed = BehaviorSubject<Int64>(value: 0)
 
   init(api: SpeedTestAPI) {
     self.api = api
@@ -40,12 +40,12 @@ final class SpeedTestPerformer {
 
     Observable<Void>.just(()).delay(testingTimeInterval, scheduler: MainScheduler.instance)
       .subscribe(onNext: { [unowned self] in
-        self.cancel()
+        self.stop()
       })
       .disposed(by: disposeBag)
   }
 
-  func cancel() {
+  func stop() {
     self.currentRequest?.cancel()
     self.currentRequest = nil
 
