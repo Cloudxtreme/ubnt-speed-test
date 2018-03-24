@@ -59,8 +59,6 @@ final class SpeedTestViewController: UIViewController {
     super.viewWillAppear(animated)
 
     updateUI(viewModel.status.value)
-
-    self.viewModel.start()
   }
 
   func updateUI(_ status: SpeedTestViewModel.Status) {

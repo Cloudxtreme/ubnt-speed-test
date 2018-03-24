@@ -166,9 +166,9 @@ extension SpeedTestViewModel {
 
     var shouldAnimateActivityIndicator: Bool {
       switch self {
-      case .readyToTest, .showingResults:
+      case .readyToTest, .showingResults, .failed:
         return false
-      case .fetchingServers, .findingFastestServer, .gettingUserLocation, .performingSpeedTest, .failed:
+      case .fetchingServers, .findingFastestServer, .gettingUserLocation, .performingSpeedTest:
         return true
       }
     }

@@ -33,7 +33,6 @@ final class SpeedTestAPI {
     headers["Accept"] = "application/json"
 
     if let token = self.token {
-      headers["x-auth-token"] = token
       headers["x-test-token"] = token
     }
 
