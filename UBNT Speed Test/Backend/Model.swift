@@ -15,7 +15,7 @@ final class Model {
 
   func fetchServers(from coordinates: CLLocationCoordinate2D) -> Observable<[FetchServers.Server]> {
     return self.mainServerAPI.createClientToken()
-      .flatMap { [unowned self] in
+      .flatMap { [unowned self] _ in
         self.mainServerAPI.fetchAllServers(coordinates: coordinates)
       }
   }

@@ -9,6 +9,9 @@
 import Foundation
 
 extension NSObjectProtocol {
+  /**
+   Method that allows to use something like Factory pattern
+   */
   @discardableResult
   func tap(_ block: (Self) -> Void) -> Self {
     block(self)

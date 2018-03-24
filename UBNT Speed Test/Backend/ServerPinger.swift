@@ -35,7 +35,6 @@ final class ServerPinger: NSObject {
       $0.host = url.host
       $0.delegate = self
       $0.pingPeriod = 0.3
-      // $0.debug = true
     }
   }
 
@@ -75,8 +74,10 @@ final class ServerPinger: NSObject {
       let observables = urls.map(self.ping).map { $0.asObservable() }
 
       return Observable.concat(observables)
+        // merge all events into one array
         .buffer(timeSpan: 1000, count: urls.count, scheduler: MainScheduler.instance)
-        .filter { !$0.isEmpty } // buffer sends two windows, one containing all of the elements and one empty (not sure why)
+        // filter empty array, because buffer sends two windows, one containing all of the elements and one empty (bug in implementation)
+        .filter { !$0.isEmpty }
         .map { $0.min(by: { $0.ping < $1.ping })! }
         .asSingle()
         .subscribe(single)

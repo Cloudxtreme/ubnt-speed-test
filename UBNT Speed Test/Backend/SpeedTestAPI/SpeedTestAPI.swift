@@ -51,14 +51,14 @@ final class SpeedTestAPI {
       }
   }
 
-  func createClientToken() -> Observable<Void> {
+  func createClientToken() -> Observable<String> {
     let request = CreateClientToken()
 
     return httpRequest(request)
-      .do(onNext: { [weak self] response in
-        self?.token = response.payload.token
+      .map { $0.payload.token }
+      .do(onNext: { [weak self] in
+        self?.token = $0
       })
-      .map { _ in Void() }
       .asObservable()
   }
 
@@ -68,14 +68,6 @@ final class SpeedTestAPI {
     return httpRequest(request)
       .map { $0.payload.servers }
       .asObservable()
-  }
-
-  func pingRequest() -> Single<PingRequest.ResponsePayload> {
-    let request = PingRequest()
-
-    return httpRequest(request)
-      .map { $0.payload }
-      .asSingle()
   }
 
   func startDownloadingHugeFile(size: Int = 20_000_000) -> DataRequest {

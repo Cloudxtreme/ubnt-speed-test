@@ -37,7 +37,7 @@ final class SpeedTestViewController: UIViewController {
     actionButton.rx.tap
       .asDriver()
       .drive(onNext: { [unowned self] in
-        switch self.viewModel.status.value {
+        switch self.viewModel.state.value {
         case .readyToTest, .showingResults, .failed:
           self.viewModel.start()
         case .fetchingServers, .findingFastestServer, .gettingUserLocation, .performingSpeedTest:
@@ -46,7 +46,7 @@ final class SpeedTestViewController: UIViewController {
       })
       .disposed(by: disposeBag)
 
-    viewModel.status
+    viewModel.state
       .subscribe(onNext: { [unowned self] status in
           self.updateUI(status)
         }, onError: { error in
@@ -58,10 +58,10 @@ final class SpeedTestViewController: UIViewController {
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
 
-    updateUI(viewModel.status.value)
+    updateUI(viewModel.state.value)
   }
 
-  func updateUI(_ status: SpeedTestViewModel.Status) {
+  func updateUI(_ status: SpeedTestViewModel.State) {
     switch status {
     case .readyToTest, .showingResults, .failed:
       actionButton.setTitle("Start", for: .normal)

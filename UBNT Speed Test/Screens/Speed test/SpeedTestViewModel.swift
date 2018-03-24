@@ -15,7 +15,7 @@ final class SpeedTestViewModel {
   var disposeBag = DisposeBag()
 
   let model: Model
-  let status = BehaviorRelay<Status>(value: .readyToTest)
+  let state = BehaviorRelay<State>(value: .readyToTest)
 
   private weak var speedTestPerformer: SpeedTestPerformer?
 
@@ -28,10 +28,11 @@ final class SpeedTestViewModel {
   }
 
   func start() {
-    status.accept(.gettingUserLocation)
+    state.accept(.gettingUserLocation)
 
     requestForLocationAuthorizationIfNeeded()
       .asObservable()
+      // request for device's location
       .flatMap { [unowned self] _ -> Observable<[CLLocation]> in
         let observable = self.locationManager.rx.didUpdateLocations
         let failObservable = self.locationManager.rx.didFailWithError.flatMap { Observable<[CLLocation]>.error($0) }
@@ -42,24 +43,26 @@ final class SpeedTestViewModel {
       }
       // take only first event to avoid multiple runs of the following test
       .take(1)
+      // fetch for nearby servers
       .flatMap { [unowned self] locations -> Observable<[FetchServers.Server]> in
         let location = locations.first!.coordinate
-        self.status.accept(.fetchingServers(fromLocation: location))
+        self.state.accept(.fetchingServers(fromLocation: location))
 
         return self.model.fetchServers(from: location)
       }
       // limit to first 5
       .map { Array($0[...5]) }
-      //
-      .flatMap { servers -> Observable<Results> in
-        self.status.accept(.findingFastestServer(fromServers: servers))
+      // ping all servers and find the fastest
+      .flatMap { servers -> Observable<SpeedResults> in
+        self.state.accept(.findingFastestServer(fromServers: servers))
 
         return ServerPinger.fastest(from: servers.map { $0.url })
-          .map { result in Results(speed: 0, server: servers.first(where: { $0.url == result.url })!, ping: result.ping) }
+          .map { result in SpeedResults(speed: 0, server: servers.first(where: { $0.url == result.url })!, ping: result.ping) }
           .asObservable()
       }
-      .flatMap { [unowned self] result -> Observable<Results> in
-        self.status.accept(.performingSpeedTest(currentResults: result))
+      // perform the speed test
+      .flatMap { [unowned self] result -> Observable<SpeedResults> in
+        self.state.accept(.performingSpeedTest(currentResults: result))
 
         return Observable.create { observer in
           let localBag = DisposeBag()
@@ -70,15 +73,15 @@ final class SpeedTestViewModel {
           performer.currentSpeed
             // calculate current speed only at certain speed, so the user can actually see something
             .buffer(timeSpan: 0.15, count: 1000, scheduler: MainScheduler.instance)
-            .map { Results(speed: $0.average, server: result.server, ping: result.ping) }
+            .map { SpeedResults(speed: $0.average, server: result.server, ping: result.ping) }
             .subscribe(onNext: { [unowned self] in
-              self.status.accept(.performingSpeedTest(currentResults: $0))
+              self.state.accept(.performingSpeedTest(currentResults: $0))
             })
             .disposed(by: localBag)
 
           performer.averageSpeed
             .takeLast(1) // average speed is calculated on every currentSpeed, but we want only the last final item
-            .map { Results(speed: $0, server: result.server, ping: result.ping) }
+            .map { SpeedResults(speed: $0, server: result.server, ping: result.ping) }
             .bind(to: observer)
             .disposed(by: localBag)
 
@@ -93,9 +96,9 @@ final class SpeedTestViewModel {
         }
       }
       .subscribe(onNext: { result in
-        self.status.accept(.showingResults(finalResults: result))
+        self.state.accept(.showingResults(finalResults: result))
       }, onError: { error in
-        self.status.accept(.failed(error: error))
+        self.state.accept(.failed(error: error))
       })
       .disposed(by: disposeBag)
   }
@@ -103,7 +106,7 @@ final class SpeedTestViewModel {
   func cancel() {
     speedTestPerformer?.cancel()
     disposeBag = DisposeBag()
-    status.accept(.readyToTest)
+    state.accept(.readyToTest)
   }
 
   private func requestForLocationAuthorizationIfNeeded() -> Single<Void> {
@@ -136,13 +139,13 @@ final class SpeedTestViewModel {
 }
 
 extension SpeedTestViewModel {
-  enum Status: Equatable {
+  enum State: Equatable {
     case readyToTest
     case gettingUserLocation
     case fetchingServers(fromLocation: CLLocationCoordinate2D)
     case findingFastestServer(fromServers: [FetchServers.Server])
-    case performingSpeedTest(currentResults: Results)
-    case showingResults(finalResults: Results)
+    case performingSpeedTest(currentResults: SpeedResults)
+    case showingResults(finalResults: SpeedResults)
     case failed(error: Error)
 
     var description: String {
@@ -173,7 +176,7 @@ extension SpeedTestViewModel {
       }
     }
 
-    static func == (lhs: Status, rhs: Status) -> Bool {
+    static func == (lhs: State, rhs: State) -> Bool {
       switch (lhs, rhs) {
       case (.readyToTest, .readyToTest):
         return true
@@ -196,12 +199,12 @@ extension SpeedTestViewModel {
     }
   }
 
-  struct Results: Equatable {
+  struct SpeedResults: Equatable {
     var speed: Int64 // bytes / s
     var server: FetchServers.Server
     var ping: TimeInterval
 
-    static func == (lhs: Results, rhs: Results) -> Bool {
+    static func == (lhs: SpeedResults, rhs: SpeedResults) -> Bool {
       return lhs.speed == rhs.speed &&
              lhs.server == rhs.server &&
              lhs.ping == rhs.ping

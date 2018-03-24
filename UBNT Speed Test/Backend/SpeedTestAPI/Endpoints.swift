@@ -81,16 +81,3 @@ struct DownloadFile: RequestProtocol {
 
   typealias Response = VoidResponse
 }
-
-struct PingRequest: RequestProtocol {
-  let method: HTTPMethod = .get
-  let path: String = "/ping"
-  let payload: Void = ()
-
-  struct ResponsePayload: JSONDecodable {
-    var pong: Bool
-    var version: String
-  }
-
-  typealias Response = JSONDecodableResponse<ResponsePayload>
-}
