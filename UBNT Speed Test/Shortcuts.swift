@@ -18,3 +18,5 @@ extension NSObjectProtocol {
     return self
   }
 }
+
+typealias L = R.string.localizable

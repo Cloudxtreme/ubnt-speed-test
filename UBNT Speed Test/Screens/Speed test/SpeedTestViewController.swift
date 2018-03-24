@@ -28,7 +28,7 @@ final class SpeedTestViewController: UIViewController {
   required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
 
-    self.title = "Speed test"
+    self.title = L.speedTestTitle()
   }
 
   override func viewDidLoad() {
@@ -63,10 +63,12 @@ final class SpeedTestViewController: UIViewController {
 
   func updateUI(_ status: SpeedTestViewModel.State) {
     switch status {
-    case .readyToTest, .showingResults, .failed:
-      actionButton.setTitle("Start", for: .normal)
+    case .readyToTest, .showingResults:
+      actionButton.setTitle(L.speedTestStart(), for: .normal)
+    case .failed:
+      actionButton.setTitle(L.speedTestTryAgain(), for: .normal)
     case .fetchingServers, .findingFastestServer, .gettingUserLocation, .performingSpeedTest:
-      actionButton.setTitle("Cancel", for: .normal)
+      actionButton.setTitle(L.speedTestStop(), for: .normal)
     }
 
     switch status {

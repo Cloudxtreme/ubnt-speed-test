@@ -13,6 +13,7 @@
 		2F2E93FB2066ABC400910842 /* TransferSpeedFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F2E93FA2066ABC400910842 /* TransferSpeedFormatter.swift */; };
 		2F2E93FD2066AEAD00910842 /* Array+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F2E93FC2066AEAC00910842 /* Array+Extensions.swift */; };
 		2F2E93FF2066B94600910842 /* SpeedTestAPI+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F2E93FE2066B94600910842 /* SpeedTestAPI+Helpers.swift */; };
+		2F2E94032066CA4F00910842 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2F2E94022066CA4F00910842 /* Localizable.strings */; };
 		2F414E3520614BC30065AEC7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F414E3420614BC30065AEC7 /* AppDelegate.swift */; };
 		2F414E3A20614BC30065AEC7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2F414E3820614BC30065AEC7 /* Main.storyboard */; };
 		2F414E3C20614BC30065AEC7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2F414E3B20614BC30065AEC7 /* Assets.xcassets */; };
@@ -49,6 +50,7 @@
 		2F2E93FA2066ABC400910842 /* TransferSpeedFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferSpeedFormatter.swift; sourceTree = "<group>"; };
 		2F2E93FC2066AEAC00910842 /* Array+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extensions.swift"; sourceTree = "<group>"; };
 		2F2E93FE2066B94600910842 /* SpeedTestAPI+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SpeedTestAPI+Helpers.swift"; sourceTree = "<group>"; };
+		2F2E94022066CA4F00910842 /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		2F414E3120614BC30065AEC7 /* UBNT Speed Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "UBNT Speed Test.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2F414E3420614BC30065AEC7 /* AppDelegate.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; tabWidth = 2; };
 		2F414E3920614BC30065AEC7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -132,6 +134,7 @@
 				2F414E60206153460065AEC7 /* Screens */,
 				2F414E3820614BC30065AEC7 /* Main.storyboard */,
 				2F414E3B20614BC30065AEC7 /* Assets.xcassets */,
+				2F2E94022066CA4F00910842 /* Localizable.strings */,
 				2F414E3D20614BC30065AEC7 /* LaunchScreen.storyboard */,
 				2F414E4020614BC30065AEC7 /* Info.plist */,
 			);
@@ -309,6 +312,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2F414E3F20614BC30065AEC7 /* LaunchScreen.storyboard in Resources */,
+				2F2E94032066CA4F00910842 /* Localizable.strings in Resources */,
 				2F414E3C20614BC30065AEC7 /* Assets.xcassets in Resources */,
 				2F414E3A20614BC30065AEC7 /* Main.storyboard in Resources */,
 			);

@@ -1,0 +1,21 @@
+/* 
+  Localizable.strings
+  UBNT Speed Test
+
+  Created by Roman Kříž on 24/03/2018.
+  Copyright © 2018 Roman Kříž. All rights reserved.
+*/
+
+"SpeedTest.title" = "UBNT Speed Test";
+"SpeedTest.start" = "Start";
+"SpeedTest.tryAgain" = "Try again";
+"SpeedTest.stop" = "Stop";
+
+"SpeedTest.readyToTest" = "Ready to test";
+"SpeedTest.gettingUserLocation" = "Getting current location";
+"SpeedTest.fetchingServers" = "Fetching nearby servers";
+"SpeedTest.findingFastestServer" = "Resolving fastest server";
+"SpeedTest.performingSpeedTest" = "Performing speed test";
+"SpeedTest.showingResults" = "Here are the results:";
+
+"SpeedTest.Errors.noLocation" = "Application does not have access to device's location, go to Settings -> Privacy -> Location Services -> UBNT Speed Test and enable them.";

@@ -151,17 +151,17 @@ extension SpeedTestViewModel {
     var description: String {
       switch self {
       case .readyToTest:
-        return "Ready"
+        return L.speedTestReadyToTest()
       case .gettingUserLocation:
-        return "Getting current location"
+        return L.speedTestGettingUserLocation()
       case .fetchingServers:
-        return "Fetching nearby servers"
+        return L.speedTestFetchingServers()
       case .findingFastestServer:
-        return "Resolving fastest server"
+        return L.speedTestFindingFastestServer()
       case .performingSpeedTest:
-        return "Performing speed test"
+        return L.speedTestPerformingSpeedTest()
       case .showingResults:
-        return ""
+        return L.speedTestShowingResults()
       case .failed(let error):
         return error.localizedDescription
       }
@@ -217,7 +217,7 @@ extension SpeedTestViewModel {
     var errorDescription: String? {
       switch self {
       case .noAccessToLocation:
-        return "Application does not have access to device's location, go to Settings -> Privacy -> Location Services -> UBNT Speed Test and enable them."
+        return L.speedTestErrorsNoLocation()
       }
     }
   }
