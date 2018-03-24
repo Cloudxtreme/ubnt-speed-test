@@ -69,7 +69,9 @@ final class SpeedTestViewModel {
 
           let performer = SpeedTestPerformer(api: api)
           performer.currentSpeed
-            .map { Results(speed: $0, server: result.server, ping: result.ping) }
+            // calculate current speed only at certain speed, so the user can actually see something
+            .buffer(timeSpan: 0.15, count: 1000, scheduler: MainScheduler.instance)
+            .map { Results(speed: $0.average, server: result.server, ping: result.ping) }
             .subscribe(onNext: { [unowned self] in
               self.status.accept(.performingSpeedTest(currentResults: $0))
             })

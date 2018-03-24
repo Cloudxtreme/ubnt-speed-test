@@ -19,7 +19,7 @@ final class SpeedTestPerformer {
   private var currentRequest: DataRequest?
 
   private var fileBytesTransfered: Int64 = 0
-  private var fileStartDate: Date?
+  private var lastSampleDate: Date?
 
   private var allBytesTransfered: Int64 = 0
   private var allStartDate: Date?
@@ -61,7 +61,7 @@ final class SpeedTestPerformer {
 
   private func startDownloadingFile() {
     fileBytesTransfered = 0
-    fileStartDate = nil
+    lastSampleDate = nil
 
     let request = self.api.startDownloadingHugeFile()
     request.rx.progress()
@@ -72,8 +72,9 @@ final class SpeedTestPerformer {
           self.allStartDate = now
         }
 
-        if self.fileStartDate == nil {
-          self.fileStartDate = now
+        guard let lastSampleDate = self.lastSampleDate else {
+          self.lastSampleDate = now
+          return
         }
 
         let thisSampleBytes = progress.bytesWritten - self.fileBytesTransfered
@@ -81,7 +82,10 @@ final class SpeedTestPerformer {
         self.fileBytesTransfered = progress.bytesWritten
         self.allBytesTransfered += thisSampleBytes
 
-        self.currentSpeed.onNext(self.calculateCurrentSpeed())
+        let speed = self.calculateSpeed(from: lastSampleDate, to: now, bytesTransfered: thisSampleBytes)
+        self.currentSpeed.onNext(speed)
+
+        self.lastSampleDate = now
       }, onCompleted: { [unowned self] in
         self.startDownloadingFile()
       })
@@ -94,14 +98,6 @@ final class SpeedTestPerformer {
     let diff = to.timeIntervalSince(from)
     let speed = Double(bytesTransfered) / diff
     return Int64(speed)
-  }
-
-  private func calculateCurrentSpeed() -> Int64 {
-    guard let startDate = self.fileStartDate else {
-      return 0
-    }
-
-    return calculateSpeed(from: startDate, to: Date(), bytesTransfered: self.fileBytesTransfered)
   }
 
   private func calculateAverageSpeed() -> Int64 {

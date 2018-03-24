@@ -87,16 +87,16 @@ final class ServerPinger: NSObject {
 extension ServerPinger {
   struct Result {
     let url: URL
-    let ping: Double
+    let ping: TimeInterval
 
-    init(url: URL, ping: Double) {
+    init(url: URL, ping: TimeInterval) {
       self.url = url
       self.ping = ping
     }
 
     init(url: URL, from summary: GBPingSummary) {
       self.url = url
-      self.ping = summary.receiveDate.timeIntervalSince(summary.sendDate) * 1000
+      self.ping = summary.receiveDate.timeIntervalSince(summary.sendDate)
     }
   }
 }
