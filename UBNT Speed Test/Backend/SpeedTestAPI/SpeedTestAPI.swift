@@ -31,10 +31,11 @@ final class SpeedTestAPI {
 
   var downloadHugeFile: DataRequest?
 
-  init(baseURL: URL) throws {
+  init(baseURL: URL, token: String? = nil) throws {
     self.baseURL = baseURL
     self.websocketBaseURL = try SpeedTestAPI.websocketURL(for: baseURL)
     self.sessionManager = SessionManager()
+    self.token = token
   }
 
   func defaultHeaders() -> HTTPHeaders {

@@ -41,7 +41,7 @@ final class SpeedTestViewController: UIViewController {
         case .readyToTest, .showingResults, .failed:
           self.viewModel.start()
         case .fetchingServers, .findingFastestServer, .gettingUserLocation, .performingSpeedTest:
-          self.viewModel.stop()
+          self.viewModel.cancel()
         }
       })
       .disposed(by: disposeBag)

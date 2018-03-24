@@ -12,7 +12,7 @@ import RxCocoa
 import CoreLocation
 
 final class SpeedTestViewModel {
-  let disposeBag = DisposeBag()
+  var disposeBag = DisposeBag()
 
   let model: Model
   let status = BehaviorRelay<Status>(value: .readyToTest)
@@ -64,8 +64,7 @@ final class SpeedTestViewModel {
         return Observable.create { observer in
           let localBag = DisposeBag()
 
-          let api = try! SpeedTestAPI(baseURL: result.server.url)
-          api.token = self.model.mainServerAPI.token
+          let api = try! SpeedTestAPI(baseURL: result.server.url, token: self.model.mainServerAPI.token)
 
           let performer = SpeedTestPerformer(api: api)
           performer.currentSpeed
@@ -78,6 +77,7 @@ final class SpeedTestViewModel {
             .disposed(by: localBag)
 
           performer.averageSpeed
+            .takeLast(1) // average speed is calculated on every currentSpeed, but we want only the last final item
             .map { Results(speed: $0, server: result.server, ping: result.ping) }
             .bind(to: observer)
             .disposed(by: localBag)
@@ -87,7 +87,7 @@ final class SpeedTestViewModel {
           performer.start()
 
           return Disposables.create {
-            performer.stop()
+            performer.cancel()
             _ = localBag
           }
         }
@@ -100,8 +100,10 @@ final class SpeedTestViewModel {
       .disposed(by: disposeBag)
   }
 
-  func stop() {
-    speedTestPerformer?.stop()
+  func cancel() {
+    speedTestPerformer?.cancel()
+    disposeBag = DisposeBag()
+    status.accept(.readyToTest)
   }
 
   private func requestForLocationAuthorizationIfNeeded() -> Single<Void> {

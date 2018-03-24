@@ -13,7 +13,7 @@ import RxAlamofire
 import RxCocoa
 
 final class SpeedTestPerformer {
-  private let disposeBag = DisposeBag()
+  private var disposeBag = DisposeBag()
   private let api: SpeedTestAPI
 
   private var currentRequest: DataRequest?
@@ -31,12 +31,6 @@ final class SpeedTestPerformer {
 
   init(api: SpeedTestAPI) {
     self.api = api
-
-    api.statMesssageReceived
-      .subscribe(onNext: {
-        print($0)
-      })
-      .disposed(by: disposeBag)
   }
 
   func start() {
@@ -46,17 +40,19 @@ final class SpeedTestPerformer {
 
     Observable<Void>.just(()).delay(testingTimeInterval, scheduler: MainScheduler.instance)
       .subscribe(onNext: { [unowned self] in
-        self.stop()
-
-        self.averageSpeed.onNext(self.calculateAverageSpeed())
-        self.averageSpeed.onCompleted()
+        self.cancel()
       })
       .disposed(by: disposeBag)
   }
 
-  func stop() {
+  func cancel() {
     self.currentRequest?.cancel()
     self.currentRequest = nil
+
+    self.disposeBag = DisposeBag()
+
+    self.currentSpeed.onCompleted()
+    self.averageSpeed.onCompleted()
   }
 
   private func startDownloadingFile() {
@@ -82,8 +78,8 @@ final class SpeedTestPerformer {
         self.fileBytesTransfered = progress.bytesWritten
         self.allBytesTransfered += thisSampleBytes
 
-        let speed = self.calculateSpeed(from: lastSampleDate, to: now, bytesTransfered: thisSampleBytes)
-        self.currentSpeed.onNext(speed)
+        self.currentSpeed.onNext(self.calculateSpeed(from: lastSampleDate, to: now, bytesTransfered: thisSampleBytes))
+        self.averageSpeed.onNext(self.calculateAverageSpeed())
 
         self.lastSampleDate = now
       }, onCompleted: { [unowned self] in

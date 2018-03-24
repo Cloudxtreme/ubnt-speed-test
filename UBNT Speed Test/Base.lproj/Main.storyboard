@@ -22,11 +22,12 @@
                                 <color key="color" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </activityIndicatorView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e2R-Z6-fvV">
-                                <rect key="frame" x="170" y="617" width="34" height="30"/>
+                                <rect key="frame" x="166" y="611" width="42" height="36"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="Start"/>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ayh-CV-2UR">
-                                <rect key="frame" x="166" y="94" width="42" height="20.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ayh-CV-2UR">
+                                <rect key="frame" x="19" y="94" width="336" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -63,6 +64,7 @@
                             <constraint firstItem="ztG-5g-Fwe" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="gNl-hh-S5w"/>
                             <constraint firstItem="ztG-5g-Fwe" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="hsC-op-Dtl"/>
                             <constraint firstItem="gFw-92-lY0" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="oRj-Co-DYB"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Ayh-CV-2UR" secondAttribute="trailing" constant="20" id="pKj-cq-3e8"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="e2R-Z6-fvV" secondAttribute="bottom" constant="20" id="rf4-Q9-Q7J"/>
                             <constraint firstItem="Ayh-CV-2UR" firstAttribute="centerX" secondItem="ztG-5g-Fwe" secondAttribute="centerX" id="xrD-uo-veH"/>
                         </constraints>
