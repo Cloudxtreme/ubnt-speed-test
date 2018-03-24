@@ -67,3 +67,30 @@ struct FetchServers: RequestProtocol {
 
   typealias Response = JSONDecodableResponse<ResponsePayload>
 }
+
+struct DownloadFile: RequestProtocol {
+  let method: HTTPMethod = .get
+  let path: String = "/download"
+  let payload: URLParameters
+
+  init(size: Int) {
+    payload = [
+      "size": String(size),
+    ]
+  }
+
+  typealias Response = VoidResponse
+}
+
+struct PingRequest: RequestProtocol {
+  let method: HTTPMethod = .get
+  let path: String = "/ping"
+  let payload: Void = ()
+
+  struct ResponsePayload: JSONDecodable {
+    var pong: Bool
+    var version: String
+  }
+
+  typealias Response = JSONDecodableResponse<ResponsePayload>
+}

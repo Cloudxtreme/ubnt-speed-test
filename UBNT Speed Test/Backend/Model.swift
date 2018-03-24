@@ -11,12 +11,12 @@ import RxSwift
 import struct CoreLocation.CLLocationCoordinate2D
 
 final class Model {
-  let api = SpeedTestAPI(baseURL: URL(string: "http://speedtest.ubncloud.com")!)
+  let mainServerAPI = try! SpeedTestAPI(baseURL: URL(string: "http://speedtest.ubncloud.com")!)
 
   func fetchServers(from coordinates: CLLocationCoordinate2D) -> Observable<[FetchServers.Server]> {
-    return self.api.createClientToken()
+    return self.mainServerAPI.createClientToken()
       .flatMap { [unowned self] in
-        self.api.fetchAllServers(coordinates: coordinates)
+        self.mainServerAPI.fetchAllServers(coordinates: coordinates)
       }
   }
 }

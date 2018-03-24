@@ -18,6 +18,10 @@ final class SpeedTestViewController: UIViewController {
   @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
   @IBOutlet weak var actionButton: UIButton!
 
+  @IBOutlet weak var pingLabel: UILabel!
+  @IBOutlet weak var serverNameLabel: UILabel!
+  @IBOutlet weak var speedLabel: UILabel!
+
   required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
 
@@ -30,8 +34,8 @@ final class SpeedTestViewController: UIViewController {
     actionButton.rx.tap
       .asDriver()
       .drive(onNext: { [unowned self] in
-        switch try! self.viewModel.status.value() {
-        case .initial, .showingResults, .failed:
+        switch self.viewModel.status.value {
+        case .readyToTest, .showingResults, .failed:
           self.viewModel.start()
         case .fetchingServers, .findingFastestServer, .gettingUserLocation, .performingSpeedTest:
           self.viewModel.stop()
@@ -41,7 +45,6 @@ final class SpeedTestViewController: UIViewController {
 
     viewModel.status
       .subscribe(onNext: { [unowned self] status in
-          print(status)
           self.updateUI(status)
         }, onError: { error in
           print(error)
@@ -52,17 +55,31 @@ final class SpeedTestViewController: UIViewController {
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
 
-    updateUI(try! self.viewModel.status.value())
+    updateUI(viewModel.status.value)
 
     self.viewModel.start()
   }
 
   func updateUI(_ status: SpeedTestViewModel.Status) {
     switch status {
-    case .initial, .showingResults, .failed:
+    case .readyToTest, .showingResults, .failed:
       actionButton.setTitle("Start", for: .normal)
     case .fetchingServers, .findingFastestServer, .gettingUserLocation, .performingSpeedTest:
       actionButton.setTitle("Cancel", for: .normal)
+    }
+
+    switch status {
+    case .performingSpeedTest(let currentResults), .showingResults(let currentResults):
+      let f = ByteCountFormatter()
+
+      pingLabel.text = String(currentResults.ping)
+      serverNameLabel.text = currentResults.server.city
+      speedLabel.text = f.string(fromByteCount: Int64(currentResults.speed)) + "/s"
+
+    default:
+      pingLabel.text = ""
+      serverNameLabel.text = ""
+      speedLabel.text = ""
     }
 
     statusLabel.text = status.description

@@ -8,13 +8,16 @@
 
 import Foundation
 import RxSwift
+import RxCocoa
 import CoreLocation
 
 final class SpeedTestViewModel {
   let disposeBag = DisposeBag()
 
   let model: Model
-  let status = BehaviorSubject<Status>(value: .initial)
+  let status = BehaviorRelay<Status>(value: .readyToTest)
+
+  private weak var speedTestPerformer: SpeedTestPerformer?
 
   var locationManager = CLLocationManager().tap {
     $0.desiredAccuracy = kCLLocationAccuracyHundredMeters
@@ -25,12 +28,9 @@ final class SpeedTestViewModel {
   }
 
   func start() {
-    status.onNext(.gettingUserLocation)
+    status.accept(.gettingUserLocation)
 
-
-
-
-    requestForLocationAuthorization()
+    requestForLocationAuthorizationIfNeeded()
       .asObservable()
       .flatMap { [unowned self] _ -> Observable<[CLLocation]> in
         let observable = self.locationManager.rx.didUpdateLocations
@@ -40,36 +40,69 @@ final class SpeedTestViewModel {
 
         return Observable.merge(observable, failObservable)
       }
+      // take only first event to avoid multiple runs of the following test
+      .take(1)
       .flatMap { [unowned self] locations -> Observable<[FetchServers.Server]> in
         let location = locations.first!.coordinate
-        print("did find location \(location)")
+        self.status.accept(.fetchingServers(fromLocation: location))
 
-        self.status.onNext(.fetchingServers(fromLocation: location))
         return self.model.fetchServers(from: location)
       }
       // limit to first 5
       .map { Array($0[...5]) }
       //
-      .flatMap { servers -> Observable<FetchServers.Server> in
-        self.status.onNext(.findingFastestServer(fromServers: servers))
+      .flatMap { servers -> Observable<Results> in
+        self.status.accept(.findingFastestServer(fromServers: servers))
 
         return ServerPinger.fastest(from: servers.map { $0.url })
-          .map { result in servers.first(where: { $0.url == result.url })! }
+          .map { result in Results(speed: 0, server: servers.first(where: { $0.url == result.url })!, ping: result.ping) }
           .asObservable()
       }
-      .subscribe(onNext: { server in
-        self.status.onNext(.performingSpeedTest(currentResults: Results(speed: 0, server: server, ping: .nan)))
+      .flatMap { [unowned self] result -> Observable<Results> in
+        self.status.accept(.performingSpeedTest(currentResults: result))
+
+        return Observable.create { observer in
+          let localBag = DisposeBag()
+
+          let api = try! SpeedTestAPI(baseURL: result.server.url)
+          api.token = self.model.mainServerAPI.token
+
+          let performer = SpeedTestPerformer(api: api)
+          performer.currentSpeed
+            .map { Results(speed: Int($0), server: result.server, ping: result.ping) }
+            .subscribe(onNext: { [unowned self] in
+              self.status.accept(.performingSpeedTest(currentResults: $0))
+            })
+            .disposed(by: localBag)
+
+          performer.averageSpeed
+            .map { Results(speed: Int($0), server: result.server, ping: result.ping) }
+            .bind(to: observer)
+            .disposed(by: localBag)
+
+          self.speedTestPerformer = performer
+
+          performer.start()
+
+          return Disposables.create {
+            performer.stop()
+            _ = localBag
+          }
+        }
+      }
+      .subscribe(onNext: { result in
+        self.status.accept(.showingResults(finalResults: result))
       }, onError: { error in
-        self.status.onNext(.failed(error: error))
+        self.status.accept(.failed(error: error))
       })
       .disposed(by: disposeBag)
   }
 
   func stop() {
-    
+    speedTestPerformer?.stop()
   }
 
-  private func requestForLocationAuthorization() -> Single<Void> {
+  private func requestForLocationAuthorizationIfNeeded() -> Single<Void> {
     return Single.create { [unowned self] single in
       switch CLLocationManager.authorizationStatus() {
       case .authorizedAlways, .authorizedWhenInUse, .denied, .restricted:
@@ -100,7 +133,7 @@ final class SpeedTestViewModel {
 
 extension SpeedTestViewModel {
   enum Status: Equatable {
-    case initial
+    case readyToTest
     case gettingUserLocation
     case fetchingServers(fromLocation: CLLocationCoordinate2D)
     case findingFastestServer(fromServers: [FetchServers.Server])
@@ -110,8 +143,8 @@ extension SpeedTestViewModel {
 
     var description: String {
       switch self {
-      case .initial:
-        return ""
+      case .readyToTest:
+        return "Ready"
       case .gettingUserLocation:
         return "Getting current location"
       case .fetchingServers:
@@ -129,7 +162,7 @@ extension SpeedTestViewModel {
 
     var shouldAnimateActivityIndicator: Bool {
       switch self {
-      case .initial, .showingResults:
+      case .readyToTest, .showingResults:
         return false
       case .fetchingServers, .findingFastestServer, .gettingUserLocation, .performingSpeedTest, .failed:
         return true
@@ -138,7 +171,7 @@ extension SpeedTestViewModel {
 
     static func == (lhs: Status, rhs: Status) -> Bool {
       switch (lhs, rhs) {
-      case (.initial, .initial):
+      case (.readyToTest, .readyToTest):
         return true
       case (.gettingUserLocation, .gettingUserLocation):
         return true

@@ -9,18 +9,31 @@
 import Foundation
 import Alamofire
 import RxSwift
+import RxCocoa
 import RxAlamofire
+import Starscream
 import RxStarscream
 import struct CoreLocation.CLLocationCoordinate2D
 
 final class SpeedTestAPI {
+  let disposeBag = DisposeBag()
+
   let baseURL: URL
   let sessionManager: SessionManager
 
+  let websocketBaseURL: URL
+  var websocketConnection: WebSocket?
+  let websocketConnected = BehaviorRelay<Bool>(value: false)
+
+  let statMesssageReceived = PublishSubject<StatMessage>()
+
   var token: String?
 
-  init(baseURL: URL) {
+  var downloadHugeFile: DataRequest?
+
+  init(baseURL: URL) throws {
     self.baseURL = baseURL
+    self.websocketBaseURL = try SpeedTestAPI.websocketURL(for: baseURL)
     self.sessionManager = SessionManager()
   }
 
@@ -40,7 +53,6 @@ final class SpeedTestAPI {
   // * -> JSONDecodable
   private func httpRequest<Request: RequestProtocol, Payload>(_ request: Request) -> Observable<Request.Response>
     where Request.Response == JSONDecodableResponse<Payload> {
-
       do {
         return try request.createRequest(in: sessionManager, baseURL: baseURL, headers: self.defaultHeaders()).rx
           .responseData()
@@ -48,6 +60,54 @@ final class SpeedTestAPI {
       } catch {
         return Observable.error(error)
       }
+  }
+
+  private func wsConnect(path: String) -> WebSocket {
+    var urlComponents = URLComponents(url: websocketBaseURL.appendingPathComponent(path), resolvingAgainstBaseURL: false)!
+    urlComponents.queryItems = [URLQueryItem(name: "token", value: self.token)]
+    let request = try! URLRequest(url: try! urlComponents.asURL(), method: .get)
+
+    return WebSocket(request: request)
+  }
+
+  func connectWebsocket() -> Single<Void> {
+    guard websocketConnection == nil else { return Single.just(()) }
+
+    return Single.create { single in
+      let socket = self.wsConnect(path: "/connect")
+      socket.connect()
+
+      socket.rx.response
+        .debug()
+        .subscribe(onNext: { event in
+          print(event)
+          //let decoder = JSONDecoder()
+          //let message = try? decoder.decode(StatMessage.self, from: text.data(using: .utf8)!)
+          //if let message = message {
+          //  self.statMesssageReceived.onNext(message)
+          //}
+        })
+        .disposed(by: self.disposeBag)
+      
+      socket.rx.connected
+        .debug()
+        .subscribe(onNext: { [unowned self] connected in
+          if connected {
+            single(.success(Void()))
+          } else {
+            self.websocketConnection = nil
+          }
+          }, onError: { error in
+            print(error)
+        })
+        .disposed(by: self.disposeBag)
+
+
+
+      self.websocketConnection = socket
+
+      return Disposables.create {}
+    }
   }
 
   func createClientToken() -> Observable<Void> {
@@ -68,7 +128,43 @@ final class SpeedTestAPI {
       .map { $0.payload.servers }
       .asObservable()
   }
+
+  func pingRequest() -> Single<PingRequest.ResponsePayload> {
+    let request = PingRequest()
+
+    return httpRequest(request)
+      .map { $0.payload }
+      .asSingle()
+  }
+
+  func startDownloadingHugeFile(size: Int = 20_000_000) -> DataRequest {
+    let request = DownloadFile(size: size)
+    return request.createRequest(in: sessionManager, baseURL: baseURL, headers: self.defaultHeaders())
+  }
+
+  static func websocketURL(for url: URL) throws -> URL {
+    var components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
+
+    switch components.scheme {
+    case "https"?:
+      components.scheme = "wss"
+    default:
+      components.scheme = "ws"
+    }
+
+    return try components.asURL()
+  }
 }
+
+extension SpeedTestAPI {
+  struct StatMessage: JSONDecodable {
+    var type: String
+
+    var tx: Int
+    var rx: Int
+  }
+}
+
 
 protocol JSONEncodable: Encodable { }
 protocol JSONDecodable: Decodable { }
