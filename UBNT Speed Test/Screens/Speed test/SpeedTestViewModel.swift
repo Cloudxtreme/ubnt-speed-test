@@ -208,7 +208,14 @@ extension SpeedTestViewModel {
     }
   }
 
-  enum Errors: Error {
+  enum Errors: Error, LocalizedError {
     case noAccessToLocation
+
+    var errorDescription: String? {
+      switch self {
+      case .noAccessToLocation:
+        return "Application does not have access to device's location, go to Settings -> Privacy -> Location Services -> UBNT Speed Test and enable them."
+      }
+    }
   }
 }
