@@ -13,12 +13,7 @@ PODS:
     - RxSwift (~> 4.0)
   - RxCocoa (4.1.2):
     - RxSwift (~> 4.0)
-  - RxStarscream (0.8):
-    - RxCocoa (~> 4.0)
-    - RxSwift (~> 4.0)
-    - Starscream (~> 3.0)
   - RxSwift (4.1.2)
-  - Starscream (3.0.4)
 
 DEPENDENCIES:
   - AlamofireNetworkActivityLogger
@@ -26,7 +21,6 @@ DEPENDENCIES:
   - R.swift
   - RxAlamofire
   - RxCocoa
-  - RxStarscream
   - RxSwift
 
 SPEC CHECKSUMS:
@@ -37,10 +31,8 @@ SPEC CHECKSUMS:
   R.swift.Library: c3af34921024333546e23b70e70d0b4e0cffca75
   RxAlamofire: 96a2bff4694a1609bb59c57b53d99ea7a0ddc64a
   RxCocoa: d88ba0f1f6abf040011a9eb4b539324fc426843a
-  RxStarscream: 4aef6751cdb8a3a2b28dabeea36a3b10b980ea42
   RxSwift: e49536837d9901277638493ea537394d4b55f570
-  Starscream: f5da93fe6984c77b694366bf7299b7dc63a76f26
 
-PODFILE CHECKSUM: ff6a5117857b6052c33f7d43fd39a47b2bd5a310
+PODFILE CHECKSUM: ae3fc21400ec470e31f8fa4ae26a8afe97c67068
 
 COCOAPODS: 1.4.0

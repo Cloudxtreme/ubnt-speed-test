@@ -8,7 +8,6 @@ target 'UBNT Speed Test' do
   pod 'RxSwift'
   pod 'RxCocoa'
   pod 'RxAlamofire'
-  pod 'RxStarscream'
 
   pod 'GBPing'
 
