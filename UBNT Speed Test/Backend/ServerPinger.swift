@@ -12,7 +12,7 @@ import RxSwift
 
 final class ServerPinger: NSObject {
   let url: URL
-  let numberOfPings: Int = 1
+  let numberOfPings: Int = 3
 
   private let innerPinger = GBPing()
   private var results: [Result] = []
@@ -34,7 +34,7 @@ final class ServerPinger: NSObject {
     innerPinger.tap {
       $0.host = url.host
       $0.delegate = self
-      $0.pingPeriod = 0.3
+      $0.pingPeriod = 0.1
     }
   }
 
@@ -73,7 +73,7 @@ final class ServerPinger: NSObject {
     return Single.create { single in
       let observables = urls.map(self.ping).map { $0.asObservable() }
 
-      return Observable.concat(observables)
+      return Observable.merge(observables)
         // merge all events into one array
         .buffer(timeSpan: 1000, count: urls.count, scheduler: MainScheduler.instance)
         // filter empty array, because buffer sends two windows, one containing all of the elements and one empty (bug in implementation)
