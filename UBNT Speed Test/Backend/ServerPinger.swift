@@ -12,7 +12,7 @@ import RxSwift
 
 final class ServerPinger: NSObject {
   let url: URL
-  let numberOfPings: Int = 5
+  let numberOfPings: Int = 1
 
   private let innerPinger = GBPing()
   private var results: [Result] = []
