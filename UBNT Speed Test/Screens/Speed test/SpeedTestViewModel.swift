@@ -114,6 +114,8 @@ final class SpeedTestViewModel {
       default:
         state.accept(.readyToTest)
       }
+    } else {
+      state.accept(.readyToTest)
     }
 
     disposeBag = DisposeBag()
