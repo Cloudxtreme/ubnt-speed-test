@@ -69,19 +69,24 @@ final class ServerPinger: NSObject {
     }
   }
 
-  static func fastest(from urls: [URL]) -> Single<Result> {
+  static func ping(for urls: [URL], parallel: Bool) -> Single<[Result]> {
     return Single.create { single in
       let observables = urls.map(self.ping).map { $0.asObservable() }
 
-      return Observable.merge(observables)
+      let mergeFunction: ([Observable<Result>]) -> Observable<Result> = parallel ? Observable.merge : Observable.concat
+      return mergeFunction(observables)
         // merge all events into one array
         .buffer(timeSpan: 1000, count: urls.count, scheduler: MainScheduler.instance)
         // filter empty array, because buffer sends two windows, one containing all of the elements and one empty (bug in implementation)
         .filter { !$0.isEmpty }
-        .map { $0.min(by: { $0.ping < $1.ping })! }
         .asSingle()
         .subscribe(single)
     }
+  }
+
+  static func fastest(from urls: [URL], parallel: Bool) -> Single<Result> {
+    return self.ping(for: urls, parallel: parallel)
+      .map { $0.min(by: { $0.ping < $1.ping })! }
   }
 }
 

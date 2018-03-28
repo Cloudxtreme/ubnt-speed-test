@@ -56,7 +56,7 @@ final class SpeedTestViewModel {
       .flatMap { servers -> Observable<SpeedResults> in
         self.state.accept(.findingFastestServer(fromServers: servers))
 
-        return ServerPinger.fastest(from: servers.map { $0.url })
+        return ServerPinger.fastest(from: servers.map { $0.url }, parallel: true)
           .map { result in SpeedResults(speed: 0, server: servers.first(where: { $0.url == result.url })!, ping: result.ping) }
           .asObservable()
       }
